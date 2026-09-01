@@ -1,0 +1,91 @@
+# Do rising real yields hurt growth stocks? How sensitive has the NASDAQ-100 been to changes in US real interest rates?
+
+## Overview
+Higher real discount rates -> future cash flows discounted more heavily 
+        -> long-duration growth equities become less valuable 
+        Thus, as real yield rises, NASDAQ returns fall. 
+
+    The 10-year real yield represents the inflation-adjusted return available from lending money essentially risk-free to the US government for approximately 10 years. 
+    Breakeven inflation rate is calculated as the difference between the 10Y treasury yield and the 10Y TIPS yield. 
+    When the real yield tends to be below 0, investors may be more willing to take risk in equities, tech stocks, crypto, real estate, commodities. But if these real yields rise up then investors are likely to rely on bonds as they also reduce the credit risk for the investors. Thus, the hurdle rate for risky investments becomes higher. This puts pressure on asset valuations. 
+
+    What is the connection between the interest rates that you mentioned and the discount rate (r) from the formula? How are the two related? I did not understand that. 
+
+## Research Question
+    This project raises the crucial question: When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse? Then we test: 
+        - Is the correlation negative? 
+        - How strong is the relationship? 
+        - Is it distinguishable from noise? 
+        - Does the relationship persist through time? 
+
+
+## Data
+- **Source:** (API name, dataset link, or file — be specific and link it)
+- **Time period:** (e.g. Jan 2022 – Dec 2024)
+- **Granularity:** (e.g. hourly OHLCV)
+- **Size:** (e.g. ~17,500 rows)
+- **Access method:** (e.g. public REST API, no auth required / CSV download)
+
+## Tools & Methods
+- **Database:** DuckDB (SQL) for storage, cleaning, and aggregation
+- **Language:** Python (pandas, matplotlib/plotly, [any stats library used])
+- **Key techniques used:** (e.g. window functions, rolling averages, GROUP BY aggregation, ANOVA/t-test, simple regression)
+
+## Pipeline
+Briefly describe each stage — a sentence or two per step is enough. This shows you understand the full cycle, not just the final chart.
+
+1. **Ingestion** — how data was pulled/loaded
+2. **Cleaning** — what issues existed (missing values, duplicates, timezone handling, etc.) and how they were resolved
+3. **Transformation** — new columns/features created (e.g. hourly returns, rolling volatility)
+4. **Exploratory Analysis (EDA)** — what you looked at before formal analysis; note anything surprising
+5. **Statistical Analysis / Modeling** — the actual test or model used, and why it fits the question
+6. **Visualization** — the chart(s) that best communicate the finding
+
+## Key Findings
+Bullet points, plain language, numbers included. This is the section people actually read first — make it stand alone.
+
+> Example:
+> - Weekend BTC volatility was **23% lower** on average than weekday volatility (p < 0.01).
+> - Volatility peaked between 13:00–15:00 UTC, coinciding with US equity market open.
+> - No statistically significant difference was found between individual weekdays (Mon–Fri).
+
+## Visualization
+Embed or link your key chart(s) here. One strong chart that tells the whole story is worth more than five mediocre ones.
+
+`![chart description](path/to/chart.png)`
+
+## Limitations & Caveats
+Be honest — this signals analytical maturity, not weakness.
+
+> Example: Volatility was measured using simple high-low range rather than realized volatility from tick data; results may differ at higher granularity. Data covers only [exchange name], which may not represent the full market.
+
+## What I'd Do Next
+Shows you're thinking beyond the scope of this one project — good signal for interviews.
+
+> Example: Extend this to compare volatility patterns across BTC, ETH, and SOL to see if the timing pattern is BTC-specific or market-wide.
+
+## How to Reproduce
+```bash
+# Clone repo
+git clone [repo link]
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the analysis
+python analysis.py
+```
+
+## Project Structure
+```
+project-folder/
+├── data/                  # raw and/or processed data (or note if excluded from repo)
+├── notebooks/             # exploratory analysis
+├── scripts/               # reusable/production code (data pull, cleaning, etc.)
+├── outputs/               # charts, exported results
+├── README.md
+└── requirements.txt
+```
+
+---
+*Author: [Your name] | [LinkedIn/portfolio link] | [Date completed]*
