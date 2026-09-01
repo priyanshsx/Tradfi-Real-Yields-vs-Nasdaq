@@ -1,23 +1,24 @@
 # Do rising real yields hurt growth stocks? How sensitive has the NASDAQ-100 been to changes in US real interest rates?
 
 ## Overview
-Higher real discount rates -> future cash flows discounted more heavily 
-        -> long-duration growth equities become less valuable 
-        Thus, as real yield rises, NASDAQ returns fall. 
 
     The 10-year real yield represents the inflation-adjusted return available from lending money essentially risk-free to the US government for approximately 10 years. 
+    
     Breakeven inflation rate is calculated as the difference between the 10Y treasury yield and the 10Y TIPS yield. 
+    
     When the real yield tends to be below 0, investors may be more willing to take risk in equities, tech stocks, crypto, real estate, commodities. But if these real yields rise up then investors are likely to rely on bonds as they also reduce the credit risk for the investors. Thus, the hurdle rate for risky investments becomes higher. This puts pressure on asset valuations. 
-
-    What is the connection between the interest rates that you mentioned and the discount rate (r) from the formula? How are the two related? I did not understand that. 
+    
+    This project investigates what the relation between real yields and NASDAQ is. And, specifically, it attempts to answer what kind of correlation exists between the two. 
 
 ## Research Question
     This project raises the crucial question: When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse? Then we test: 
         - Is the correlation negative? 
         - How strong is the relationship? 
         - Is it distinguishable from noise? 
-        - Does the relationship persist through time? 
-
+        - Does the relationship persist through time?
+    
+    We attempt to follow this workflow:
+    A restrictive monetary policy impacts real yields positively. This further increases the discount rates, lowering the present value of growth stocks. Thus, it flips the attractiveness of risk-on assets like the NASDAQ against the bonds.  
 
 ## Data
 - **Source:** (API name, dataset link, or file — be specific and link it)
