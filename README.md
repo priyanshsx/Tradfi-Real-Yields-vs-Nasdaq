@@ -20,11 +20,18 @@
     We attempt to follow this workflow:
     A restrictive monetary policy impacts real yields positively. This further increases the discount rates, lowering the present value of growth stocks. Thus, it flips the attractiveness of risk-on assets like the NASDAQ against the bonds.  
 
+## Workflow 
+    1. Decide on data sources. 
+        - Made a decision on which source to use exactly. 
+        variable | economic meaning | frequency | source | units | date range 
+        We will go with QQQ because its the tradable wrapper around the Nasdaq-100 Index. 
+
+
 ## Data
-- **Source:** (API name, dataset link, or file — be specific and link it)
-- **Time period:** (e.g. Jan 2022 – Dec 2024)
-- **Granularity:** (e.g. hourly OHLCV)
-- **Size:** (e.g. ~17,500 rows)
+- **Source:** (FRED ALFRED, BLS, US Treasury)
+- **Time period:** (Jan 2025 – Aug 2026)
+- **Granularity:** (daily OHLCV)
+- **Size:** ()
 - **Access method:** (e.g. public REST API, no auth required / CSV download)
 
 ## Tools & Methods
