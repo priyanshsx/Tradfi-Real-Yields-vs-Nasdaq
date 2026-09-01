@@ -30,8 +30,10 @@
        QQQ: Date, Open, High, Low, Close, Adjusted Close, Volume 
        DFII10: Date, Real_Yield_10Y
        Period: 2025-01-01 through 2026-08-31
-    3. Build the raw-data layer. 
-        Raw data should remain untouched. 
+    3. Build the raw-data layer. Use source_qqq.py to reproduce qqq.csv for the given duration.
+        Raw data is untouched: main.db created with two tables: 
+            1. qqq
+            2. dfii10  
         Processed data should be separate. 
         Acquisition script should be reproducible. 
     4. Inspect data quality. 
