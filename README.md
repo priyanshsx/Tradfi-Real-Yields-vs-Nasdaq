@@ -24,11 +24,30 @@
     1. Decide on data sources. 
         - Made a decision on which source to use exactly. 
         variable | economic meaning | frequency | source | units | date range 
-        We will go with QQQ because its the tradable wrapper around the Nasdaq-100 Index. 
+        We will go with QQQ because its the tradable wrapper around the Nasdaq-100 Index.
+        Further, we will choose the DFII10 from FRED because it offers the 10y real yield that we're looking to compare against QQQ.  
+    2. Define the raw data inputs. 
+       QQQ: Date, Open, High, Low, Close, Adjusted Close, Volume 
+       DFII10: Date, Real_Yield_10Y
+       Period: 2025-01-01 through 2026-08-31
+    3. Build the raw-data layer. 
+        Raw data should remain untouched. 
+        Processed data should be separate. 
+        Acquisition script should be reproducible. 
+    4. Inspect data quality. 
+        We're checking for: 
+            - date range 
+            - missing obversations 
+            - duplicates
+            - data types 
+            - weekends/holidays 
+            - null values 
+    5. Build the analytical dataset. 
+
 
 
 ## Data
-- **Source:** (FRED ALFRED, BLS, US Treasury)
+- **Source:** (FRED, Nasdaq Exchange)
 - **Time period:** (Jan 2025 – Aug 2026)
 - **Granularity:** (daily OHLCV)
 - **Size:** ()
