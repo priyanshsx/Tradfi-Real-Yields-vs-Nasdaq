@@ -63,3 +63,14 @@ WHERE dfii10_filled.date = sub.date
 
 -- sanity check 
 con.sql("SELECT * FROM dfii10_filled LIMIT 5").show()
+
+-- merging using LEFT JOIN 
+con.sql("""
+CREATE TABLE merged AS
+    SELECT qqq.date, qqq.adj_close, qqq.daily_return_qqq,
+    dfii10_filled.dfii10, dfii10_filled.daily_yield_change
+    FROM qqq
+    LEFT JOIN dfii10_filled
+    ON qqq.date = dfii10_filled.date
+    ORDER BY qqq.date
+""").show()
