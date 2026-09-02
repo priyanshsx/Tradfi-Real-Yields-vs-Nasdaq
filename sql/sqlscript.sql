@@ -29,7 +29,19 @@ con.sql("CREATE TABLE dfii10_filled AS SELECT
         FROM dfii10
         ORDER BY date")
 
--- Observations 
--- 1. DFII10 seems to have 17 entries with NULL in DFII10 column. 
--- 2. There are no NULL values in qqq. 
--- 3. 
+-- qqq: building the daily returns column 
+con.sql("ALTER TABLE qqq ADD COLUMN daily_return_qqq DOUBLE")
+
+con.sql("""
+UPDATE qqq 
+SET daily_return_qqq = sub.daily_return
+FROM (
+    SELECT date,
+    (adj_close - LAG(adj_close) OVER (ORDER BY date)) / LAG(adj_close) OVER (ORDER BY date) AS daily_return)
+    FROM qqq
+    ) sub
+WHERE qqq.date = sub.date
+""")
+
+-- Quick sanity check 
+con.sql("SELECT * FROM qqq LIMIT 5")
