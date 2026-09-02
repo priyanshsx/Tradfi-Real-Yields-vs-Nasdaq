@@ -20,6 +20,15 @@ con.sql("SELECT date, COUNT(*) AS occurrences FROM dfii10 GROUP BY date HAVING C
 con.sql("SELECT date FROM qqq EXCEPT SELECT date FROM dfii10 ORDER BY date").show()
 con.sql("SELECT date FROM dfii10 EXCEPT SELECT date FROM qqq ORDER BY date").show()
 
+-- Forward-filling data in dfii10 
+con.sql("CREATE TABLE dfii10_filled AS SELECT 
+        date, COALESCE(dfii10, LAST_VALUE(DFII10 IGNORE NULLS) 
+        OVER
+        (ORDER BY date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
+        AS dfii10)
+        FROM dfii10
+        ORDER BY date")
+
 -- Observations 
 -- 1. DFII10 seems to have 17 entries with NULL in DFII10 column. 
 -- 2. There are no NULL values in qqq. 
