@@ -45,3 +45,21 @@ WHERE qqq.date = sub.date
 
 -- Quick sanity check 
 con.sql("SELECT * FROM qqq LIMIT 5")
+
+-- dfii10_filled: building the daily_yield_change 
+
+con.sql("ATLER TABLE dfii10_filled ADD COLUMN daily_yield_change DOUBLE")
+
+con.sql("""
+UPDATE dfii10_filled
+SET daily_yield_change = sub.daily_yield_change 
+FROM (
+    SELECT date,
+    (dfii10 - LAG(dfii10) OVER (ORDER BY date) * 100 AS daily_yield_change)
+    FROM dfi110_filled
+    ) sub
+WHERE dfii10_filled.date = sub.date
+""")
+
+-- sanity check 
+con.sql("SELECT * FROM dfii10_filled LIMIT 5").show()
