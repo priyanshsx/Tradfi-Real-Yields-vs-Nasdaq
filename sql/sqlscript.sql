@@ -74,3 +74,20 @@ CREATE TABLE merged AS
     ON qqq.date = dfii10_filled.date
     ORDER BY qqq.date
 """).show()
+
+-- computing basic stats in SQL
+con.sql("""
+SELECT 
+    AVG(daily_return_qqq) AS avg_qqq_return,
+    AVG(daily_yield_change) AS avg_yield_change,
+    STDDEV(daily_return_qqq) AS stddev_qqq_return,
+    STDDEV(daily_yield_change) AS stddev_daily_yield_change,
+    MIN(daily_return_qqq) AS min_qqq_return,
+    MAX(daily_return_qqq) AS max_qqq_return,
+    MIN(daily_yield_change) AS min_yield_change,
+    MAX(daily_yield_change) AS max_yield_change,
+    MEDIAN(daily_qqq_return) AS median_qqq_return,
+    MEDIAN(daily_yield_change) AS median_yield_change
+FROM merged
+WHERE daily_yield_change IS NOT NULL AND daily_return_qqq IS NOT NULL 
+""").show()
