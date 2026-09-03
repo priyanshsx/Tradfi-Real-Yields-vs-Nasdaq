@@ -117,4 +117,4 @@ project-folder/
 ```
 
 ---
-*Author: [Your name] | [LinkedIn/portfolio link] | [Date completed]*
+*Author: Priyansh Saxena | https://www.linkedin.com/in/priyansh-saxena/ | [Date completed]*
