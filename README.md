@@ -53,7 +53,7 @@ The underlying economic logic being tested: Restrictive monetary policy tends to
 
 ## Visualization
 
-`![QQQ Return vs Yield Change Linear Regression](Tradfi Real Yields vs Nasdaq/QQQ Returns vs Yield Change.png)`
+Please refer to the "figures" folder. 
 
 ## Limitations & Caveats
 This was my first end-to-end data analysis project, and I built it primarily to get comfortable with the full pipeline (SQL + Python) rather than to produce a polished, publication-ready research finding. So please give me room to improve in future! 
