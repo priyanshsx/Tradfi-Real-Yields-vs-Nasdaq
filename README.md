@@ -1,12 +1,13 @@
 # Do rising real yields hurt growth stocks? How sensitive has the NASDAQ-100 been to changes in US real interest rates?
 
-## Overview
+## Overview 
 
-    The 10-year real yield (proxied here by DFII10, the 10-Year Treasury Inflation-Protected Security yield) represents the inflation-adjusted return available from lending money to the US government for approximately 10 years — essentially the "risk-free" return once inflation is stripped out. (A related concept, breakeven inflation, is calculated as the difference between the nominal 10-year Treasury yield and this real/TIPS yield — it wasn't used directly in this project, but is useful context for understanding what "real" yield means.)
+    The 10-year real yield (DFII10, 10-Year Treasury Inflation-Protected Security yield) represents the inflation-adjusted return available from lending money to the US government for approx 10 years. 
+    Real yields matter for risk assets because they set the effective "hurdle rate" for riskier investments. When real yields are low or negative, investors have less incentive to sit in safe govt. debt, so capital tends to flow toward equities, tech stocks, crypto, etc. When real yields rise, safe bonds become more attractive on their own merit. 
+    This added pressure typically shows up as lower valuations for growth-oriented assets, since their value depends heavily on future cash flows being discounted at a now higher rate. 
 
-    Real yields matter for risk assets because they set the effective "hurdle rate" for riskier investments. When real yields are low or negative, investors have less incentive to sit in safe government debt, so capital tends to flow toward equities, tech stocks, crypto, real estate, and commodities in search of better returns. When real yields rise, safe bonds become more attractive on their own merits — they offer a real, inflation-adjusted return with far less risk — so the bar risky assets need to clear to justify holding them gets higher. This added pressure typically shows up as lower valuations for growth-oriented assets, since their value depends heavily on future cash flows being discounted at a now higher rate.
+    This project investigates that relationship empircally, using QQQ (used here as a proxy for large-cap growth/tech equities) and DFII10 as a real-world test case. Specifically, it asks what kind of statistical relationship, if any, exists between daily changes in the real yield and daily returns on QQQ. 
 
-    This project investigates that relationship empirically, using QQQ (a NASDAQ-100 ETF, used here as a proxy for large-cap growth/tech equities) and DFII10 as a real-world test case. Specifically, it asks what kind of statistical relationship — if any — exists between daily changes in the real yield and daily returns on QQQ.
 
 ## Research Question
     When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse?
@@ -49,7 +50,6 @@
 - Overall, the data suggests that if a relationship between real yields and QQQ exists, it does not manifest a consistent economically meaningful pattern at the single-day level, motivating further analysis at a regime/multi-week level rather than a day-to-day one. 
 
 ## Visualization
-Embed or link your key chart(s) here. One strong chart that tells the whole story is worth more than five mediocre ones.
 
 `![QQQ Return vs Yield Change Linear Regression](Tradfi Real Yields vs Nasdaq/QQQ Returns vs Yield Change.png)`
 
