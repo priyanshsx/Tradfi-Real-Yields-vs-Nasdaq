@@ -46,29 +46,27 @@
             - null values 
     5. Build the analytical dataset. 
 
-
-
 ## Data
-- **Source:** (FRED, Nasdaq Exchange)
-- **Time period:** (Jan 2025 – Aug 2026)
-- **Granularity:** (daily OHLCV)
+- **Source:** FRED, Yahoo Finance
+- **Time period:** Jan 2025 – Aug 2026
+- **Granularity:** Daily OHLCV
 - **Size:** ()
-- **Access method:** (e.g. public REST API, no auth required / CSV download)
+- **Access method:** CSV download, direct pull from Yahoo Finance 
 
 ## Tools & Methods
 - **Database:** DuckDB (SQL) for storage, cleaning, and aggregation
-- **Language:** Python (pandas, matplotlib/plotly, [any stats library used])
-- **Key techniques used:** (e.g. window functions, rolling averages, GROUP BY aggregation, ANOVA/t-test, simple regression)
+- **Language:** Python (pandas, numpy, matplotlib/plotly, scipy.stats, statsmodels)
+- **Key techniques used:** window functions, GROUP BY aggregation, OLS regression
 
 ## Pipeline
-Briefly describe each stage — a sentence or two per step is enough. This shows you understand the full cycle, not just the final chart.
 
-1. **Ingestion** — how data was pulled/loaded
-2. **Cleaning** — what issues existed (missing values, duplicates, timezone handling, etc.) and how they were resolved
-3. **Transformation** — new columns/features created (e.g. hourly returns, rolling volatility)
-4. **Exploratory Analysis (EDA)** — what you looked at before formal analysis; note anything surprising
-5. **Statistical Analysis / Modeling** — the actual test or model used, and why it fits the question
-6. **Visualization** — the chart(s) that best communicate the finding
+
+1. **Ingestion**: Daily QQQ price data (OHLCV) and DFII10 (10-year Treasury Inflation-Indexed Security, real yield) data were downloaded as CSVs and loaded into DuckDB tablees using read_csv_auto(). The QQQ file rqeuired skipping 3 header rows due to a multi-row ticker/metadata header/ 
+2. **Cleaning**: DFII10 contained 17 NULL values, all falling on US market holidays (confirmed by cross-referencing against QQQ's missing dates using EXCEPT). These were resolved using a forward-fill, carrying the last known yield forward. A 2-3 publication lag was identified between QQQ and DFII10(FRED, delayed). QQQ's most recent unmatched dates were left as NULL post-join and excluded from analysis via WHERE...IS NOT NULL. Duplicate dates were checked for and confirmed absent in both tables prior to merging. 
+3. **Transformation**: Two derived columns were created using LAG() window functions in SQL: (1) daily_return_qqq, the standard percentage return (price - previous_price / previous_price_ and 2)daily_yield_change, the raw day-over-day change in DFII10 expressed in basis points (yield - previous_yield) * 100. Basis points were used for the yield series, since yields are already normalized rates where absolute point movement is the economically meaningful unit. 
+4. **Exploratory Analysis (EDA)**: Summary statistics (mean, median, standard deviation, min/max) were computed in SQL for both derived series. An initial scatter plot of daily_yield_change vs. daily_return_qqq showed no visually obvious linear patter. This prompted further statistical tests rather than relying on visual inspection alone. 
+5. **Statistical Analysis / Modeling**: Pearson correlation (r = -0.097, p = 0.0481) and a simple OLS regression (coefficient = -0.0004, p = 0.048, R-squared = 0.009) were run in Python to formally test the relationship. Both methods agree: there is a small, negative, borderline-significant relationship between daily yield changes and QQQ returns, but it explains under 1% of daily return variance. Regression diagnostics (Jarque-Bera, kurtos = 16) indicate non-normal, fat-tailed residuals. This suggests that the borderline p-value should be interpreted cautiously rather than treated as strong evidence of a real daily-level effect. 
+6. **Visualization**: A scatter plot with the fitted OLS regression line and 95% confidence interval was produced in Python to visually communicate both the weak negative slope and the substantial uncertainty/noise surrounding it, reinforcing the statistical finding that the relationship, while directionally present, is not practically meaningful at the daily level. 
 
 ## Key Findings
 
