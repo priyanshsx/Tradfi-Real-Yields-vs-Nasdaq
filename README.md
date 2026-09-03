@@ -74,22 +74,22 @@ This project was really about learning the mechanics (SQL joins, window function
 - Get more comfortable with the Python/SQL fit: this project taught me a lot about when to reach for SQL vs. Python. I'd like to keep sharpening that muscle and practice it on even bigger datasets. 
 
 ## How to Reproduce
-# 1. Clone the repo
+### 1. Clone the repo
 git clone []
 cd [Tradfi-Real-Yields-vs-Nasdaq]
 
-# 2. Install dependencies
+### 2. Install dependencies
 pip install duckdb pandas matplotlib scipy statsmodels
 
-# 3. Raw data
-# Place the raw QQQ and DFII10 CSV files in raw_data/
-# (see Data section above for sources)
+### 3. Raw data
+Place the raw QQQ and DFII10 CSV files in raw_data/
+(see Data section above for sources)
 
-# 4. Build the database and load raw data
-# Run the SQL scripts in sql/ against a new DuckDB file, e.g.:
+### 4. Build the database and load raw data
+Run the SQL scripts in sql/ against a new DuckDB file, e.g.:
 python3 src/script.py
 
-# 5. Run the analysis
+### 5. Run the analysis
 python3 src/script.py
 
 ## Project Structure
