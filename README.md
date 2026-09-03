@@ -2,49 +2,23 @@
 
 ## Overview
 
-    The 10-year real yield represents the inflation-adjusted return available from lending money essentially risk-free to the US government for approximately 10 years. 
-    
-    Breakeven inflation rate is calculated as the difference between the 10Y treasury yield and the 10Y TIPS yield. 
-    
-    When the real yield tends to be below 0, investors may be more willing to take risk in equities, tech stocks, crypto, real estate, commodities. But if these real yields rise up then investors are likely to rely on bonds as they also reduce the credit risk for the investors. Thus, the hurdle rate for risky investments becomes higher. This puts pressure on asset valuations. 
-    
-    This project investigates what the relation between real yields and NASDAQ is. And, specifically, it attempts to answer what kind of correlation exists between the two. 
+    The 10-year real yield (proxied here by DFII10, the 10-Year Treasury Inflation-Protected Security yield) represents the inflation-adjusted return available from lending money to the US government for approximately 10 years — essentially the "risk-free" return once inflation is stripped out. (A related concept, breakeven inflation, is calculated as the difference between the nominal 10-year Treasury yield and this real/TIPS yield — it wasn't used directly in this project, but is useful context for understanding what "real" yield means.)
+
+    Real yields matter for risk assets because they set the effective "hurdle rate" for riskier investments. When real yields are low or negative, investors have less incentive to sit in safe government debt, so capital tends to flow toward equities, tech stocks, crypto, real estate, and commodities in search of better returns. When real yields rise, safe bonds become more attractive on their own merits — they offer a real, inflation-adjusted return with far less risk — so the bar risky assets need to clear to justify holding them gets higher. This added pressure typically shows up as lower valuations for growth-oriented assets, since their value depends heavily on future cash flows being discounted at a now higher rate.
+
+    This project investigates that relationship empirically, using QQQ (a NASDAQ-100 ETF, used here as a proxy for large-cap growth/tech equities) and DFII10 as a real-world test case. Specifically, it asks what kind of statistical relationship — if any — exists between daily changes in the real yield and daily returns on QQQ.
 
 ## Research Question
-    This project raises the crucial question: When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse? Then we test: 
-        - Is the correlation negative? 
-        - How strong is the relationship? 
-        - Is it distinguishable from noise? 
-        - Does the relationship persist through time?
-    
-    We attempt to follow this workflow:
-    A restrictive monetary policy impacts real yields positively. This further increases the discount rates, lowering the present value of growth stocks. Thus, it flips the attractiveness of risk-on assets like the NASDAQ against the bonds.  
+    When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse?
 
-## Workflow 
-    1. Decide on data sources. 
-        - Made a decision on which source to use exactly. 
-        variable | economic meaning | frequency | source | units | date range 
-        We will go with QQQ because its the tradable wrapper around the Nasdaq-100 Index.
-        Further, we will choose the DFII10 from FRED because it offers the 10y real yield that we're looking to compare against QQQ.  
-    2. Define the raw data inputs. 
-       QQQ: Date, Open, High, Low, Close, Adjusted Close, Volume 
-       DFII10: Date, Real_Yield_10Y
-       Period: 2025-01-01 through 2026-08-31
-    3. Build the raw-data layer. Use source_qqq.py to reproduce qqq.csv for the given duration.
-        Raw data is untouched: main.db created with two tables: 
-            1. qqq
-            2. dfii10  
-        Processed data should be separate. 
-        Acquisition script should be reproducible. 
-    4. Inspect data quality. 
-        We're checking for: 
-            - date range 
-            - missing obversations 
-            - duplicates
-            - data types 
-            - weekends/holidays 
-            - null values 
-    5. Build the analytical dataset. 
+    This project tests that question along four dimensions:
+
+    - Is the correlation between real yield changes and QQQ returns negative, as theory predicts?
+    - How strong is that relationship, in practical terms (not just whether it exists)?
+    - Is it statistically distinguishable from random noise?
+    - Does the relationship hold up when tested rigorously, or does it weaken under scrutiny?
+
+    The underlying economic logic being tested: Restrictive monetary policy tends to push real yields higher. Higher real yields raise the discount rate used to value future cash flows, which lowers the present value of growth stocks in particular (since more of their expected value sits further in the future). This should, in theory, make safe bonds relatively more attractive than risk-on assets like QQQ — meaning periods of rising real yields should coincide with weaker QQQ performance. This project tests whether that theoretical relationship is actually visible in the data at a daily level. 
 
 ## Data
 - **Source:** FRED, Yahoo Finance
@@ -80,26 +54,41 @@ Embed or link your key chart(s) here. One strong chart that tells the whole stor
 `![chart description](path/to/chart.png)`
 
 ## Limitations & Caveats
-Be honest — this signals analytical maturity, not weakness.
+This was my first end-to-end data analysis project, and I built it primarily to get comfortable with the full pipeline (SQL + Python) rather than to produce a polished, publication-ready research finding. So please give me room to improve in future! 
 
-> Example: Volatility was measured using simple high-low range rather than realized volatility from tick data; results may differ at higher granularity. Data covers only [exchange name], which may not represent the full market.
+- Single asset, single macro variable: I only looked at QQQ against one yield series (DFII10). I picked this pair because it was a manageable starting point for learning joins, window functions, and regression. And not because I had strong priors that this was the most important relationship to test. A more rigorous version of this project would test multiple assets and multiple macro variables before drawing conclusions about "the" relationship between rates and equities. 
+- Daily granularity only: I didn't explore intraday data or longer horizons (weekly/monthly), both of which are common in real macro-finance research and might reveal a relationship that daily data is too noisy to detect. 
+- I didn't correct for the non-normal residuals I found: I flagged that my regression's errors are fat-tailed (via the Jarque-Bera test), but I used standard OLS rather than a more robust method that might handle this better. I understand why this matters conceptually, but implementing a fix was beyond what I've learned so far. But that will be my next target. 
+- Simple linear relationship: I only tested a linear regression. It's possible the real relationship (if any) is non-linear, threshold-based, or only shows up during specific volatility regimes. 
+- No out-of-sample testing: I analyzed the full dataset at once rather than splitting it into a training/test period, so I can't say whether any pattern I found would have actually held up if I'd tried to use it predictively in advance. 
+- Forward-filling assumption: I forward-filled DFII10's missing values on holidays, which is a common convention, but it does mean those days aren't "real" observations. 
 
 ## What I'd Do Next
-Shows you're thinking beyond the scope of this one project — good signal for interviews.
-
-> Example: Extend this to compare volatility patterns across BTC, ETH, and SOL to see if the timing pattern is BTC-specific or market-wide.
+This project was really about learning the mechanics (SQL joins, window functions, forward-filling, linear regression, and connecting SQL to Python). Now that the pipeline works end to end, here's what I'd want to explore if I were to continue building on this analysis: 
+- Move from daily to regime-level analysis: This was actually my original motivation for starting this project. I wanted to eventually classify sustained "rising yield" vs "falling yield" periods (using a rolling average) and compare QQQ's behaviour across those regimes, rather than day-to-day. The daily-level result ehre (weak, borderline relationship) is what pushed me to want to try this next. 
+- Add more assets: Repeat this same analysis for other tickers to see whether QQQ's weak relationship with real yields is typical or unusual compared to other assets. 
+- Try a more robust statistical test: Now that I understand why my residuals being non-normal is a problem, I'd like to learn how to apply robust standard errors or a bootstrap-based significance test, and see whether my borderline p-value holds up. 
+- Learn multi-variable regression: Right now I only tested one predictor at a time. A natural next step would be adding more variables (like VIX or overall market volume) to see whether yield changes still matter once other factors are accounted for. 
+- Get more comfortable with the Python/SQL fit: this project taught me a lot about when to reach for SQL vs. Python. I'd like to keep sharpening that muscle and practice it on even bigger datasets. 
 
 ## How to Reproduce
-```bash
-# Clone repo
-git clone [repo link]
+# 1. Clone the repo
+git clone []
+cd [Tradfi-Real-Yields-vs-Nasdaq]
 
-# Install dependencies
-pip install -r requirements.txt
+# 2. Install dependencies
+pip install duckdb pandas matplotlib scipy statsmodels
 
-# Run the analysis
-python analysis.py
-```
+# 3. Raw data
+# Place the raw QQQ and DFII10 CSV files in raw_data/
+# (see Data section above for sources)
+
+# 4. Build the database and load raw data
+# Run the SQL scripts in sql/ against a new DuckDB file, e.g.:
+python3 src/script.py
+
+# 5. Run the analysis
+python3 src/script.py
 
 ## Project Structure
 ```
@@ -109,8 +98,7 @@ project-folder/
 ├── scripts/               # reusable/production code (data pull, cleaning, etc.)
 ├── outputs/               # charts, exported results
 ├── README.md
-└── requirements.txt
 ```
 
 ---
-*Author: Priyansh Saxena | https://www.linkedin.com/in/priyansh-saxena/ | [Date completed]*
+*Author: Priyansh Saxena | https://www.linkedin.com/in/priyansh-saxena/ | 3rd September, 2026*
