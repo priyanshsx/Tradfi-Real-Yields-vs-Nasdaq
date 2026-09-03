@@ -1,4 +1,4 @@
-# Do rising real yields hurt growth stocks? How sensitive has the NASDAQ-100 been to changes in US real interest rates?
+# Tradfi Real Yields vs QQQ Returns: an investigation into how real yields affect QQQ returns on a daily timeframe
 
 ## Overview 
 
