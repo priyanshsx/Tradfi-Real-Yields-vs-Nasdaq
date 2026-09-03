@@ -25,7 +25,7 @@ plt.xlabel('Daily Yield Change (bps)')
 plt.ylabel('Daily QQQ Returns')
 plt.title('QQQ Return vs. 10-Year Real Yield Change')
 plt.grid(alpha=0.3)
-# plt.show()
+plt.show()
 
 # running the OLS regression 
 reg_df = df[['daily_return_qqq', 'daily_yield_change']].dropna()
