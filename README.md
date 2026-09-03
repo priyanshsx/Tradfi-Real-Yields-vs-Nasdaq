@@ -51,7 +51,7 @@
 ## Visualization
 Embed or link your key chart(s) here. One strong chart that tells the whole story is worth more than five mediocre ones.
 
-`![chart description](path/to/chart.png)`
+`![QQQ Return vs Yield Change Linear Regression](Tradfi Real Yields vs Nasdaq/QQQ Returns vs Yield Change.png)`
 
 ## Limitations & Caveats
 This was my first end-to-end data analysis project, and I built it primarily to get comfortable with the full pipeline (SQL + Python) rather than to produce a polished, publication-ready research finding. So please give me room to improve in future! 
