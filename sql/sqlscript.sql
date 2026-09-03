@@ -75,7 +75,7 @@ CREATE TABLE merged AS
     ORDER BY qqq.date
 """).show()
 
--- computing basic stats in SQL
+-- computing basic stats in SQL before python
 con.sql("""
 SELECT 
     AVG(daily_return_qqq) AS avg_qqq_return,
