@@ -2,24 +2,26 @@
 
 ## Overview 
 
-    The 10-year real yield (DFII10, 10-Year Treasury Inflation-Protected Security yield) represents the inflation-adjusted return available from lending money to the US government for approx 10 years. 
-    Real yields matter for risk assets because they set the effective "hurdle rate" for riskier investments. When real yields are low or negative, investors have less incentive to sit in safe govt. debt, so capital tends to flow toward equities, tech stocks, crypto, etc. When real yields rise, safe bonds become more attractive on their own merit. 
-    This added pressure typically shows up as lower valuations for growth-oriented assets, since their value depends heavily on future cash flows being discounted at a now higher rate. 
+The 10-year real yield (DFII10, 10-Year Treasury Inflation-Protected Security yield) represents the inflation-adjusted return available from lending money to the US government for approx 10 years. 
 
-    This project investigates that relationship empircally, using QQQ (used here as a proxy for large-cap growth/tech equities) and DFII10 as a real-world test case. Specifically, it asks what kind of statistical relationship, if any, exists between daily changes in the real yield and daily returns on QQQ. 
+Real yields matter for risk assets because they set the effective "hurdle rate" for riskier investments. When real yields are low or negative, investors have less incentive to sit in safe govt. debt, so capital tends to flow toward equities, tech stocks, crypto, etc. When real yields rise, safe bonds become more attractive on their own merit. 
+
+This added pressure typically shows up as lower valuations for growth-oriented assets, since their value depends heavily on future cash flows being discounted at a now higher rate. 
+
+This project investigates that relationship empircally, using QQQ (used here as a proxy for large-cap growth/tech equities) and DFII10 as a real-world test case. Specifically, it asks what kind of statistical relationship, if any, exists between daily changes in the real yield and daily returns on QQQ. 
 
 
 ## Research Question
-    When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse?
+When the inflation-adjusted return available on safe government bonds rises, do growth equities tend to perform worse?
 
-    This project tests that question along four dimensions:
+This project tests that question along four dimensions:
 
-    - Is the correlation between real yield changes and QQQ returns negative, as theory predicts?
-    - How strong is that relationship, in practical terms (not just whether it exists)?
-    - Is it statistically distinguishable from random noise?
-    - Does the relationship hold up when tested rigorously, or does it weaken under scrutiny?
+- Is the correlation between real yield changes and QQQ returns negative, as theory predicts?
+- How strong is that relationship, in practical terms (not just whether it exists)?
+- Is it statistically distinguishable from random noise?
+- Does the relationship hold up when tested rigorously, or does it weaken under scrutiny?
 
-    The underlying economic logic being tested: Restrictive monetary policy tends to push real yields higher. Higher real yields raise the discount rate used to value future cash flows, which lowers the present value of growth stocks in particular (since more of their expected value sits further in the future). This should, in theory, make safe bonds relatively more attractive than risk-on assets like QQQ — meaning periods of rising real yields should coincide with weaker QQQ performance. This project tests whether that theoretical relationship is actually visible in the data at a daily level. 
+The underlying economic logic being tested: Restrictive monetary policy tends to push real yields higher. Higher real yields raise the discount rate used to value future cash flows, which lowers the present value of growth stocks in particular (since more of their expected value sits further in the future). This should, in theory, make safe bonds relatively more attractive than risk-on assets like QQQ — meaning periods of rising real yields should coincide with weaker QQQ performance. This project tests whether that theoretical relationship is actually visible in the data at a daily level. 
 
 ## Data
 - **Source:** FRED, Yahoo Finance
