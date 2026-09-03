@@ -71,12 +71,14 @@ Briefly describe each stage — a sentence or two per step is enough. This shows
 6. **Visualization** — the chart(s) that best communicate the finding
 
 ## Key Findings
-Bullet points, plain language, numbers included. This is the section people actually read first — make it stand alone.
 
-> Example:
-> - Weekend BTC volatility was **23% lower** on average than weekday volatility (p < 0.01).
-> - Volatility peaked between 13:00–15:00 UTC, coinciding with US equity market open.
-> - No statistically significant difference was found between individual weekdays (Mon–Fri).
+A simple OLS regression finds a small, negative, and boderline-significant relationship between daily 10-year real yield changes and QQQ daily returns: 
+    coefficient = -0.0004
+    p = 0.048 
+This explains the under 1% of return variance (R² = 0.009).
+
+Given non-normal, fat-tailed residuals (confirmed via Jarque-Bera test), this borderline p-value should be interpreted cautiously - the true relationship may not be statistically distinguishable from noise under more robust testing. This weak daily-level result motivates examining the relationship at a regime level (sustained multi-week yield trends) rather than day-to-day, where the relationship may be more pronounced. 
+
 
 ## Visualization
 Embed or link your key chart(s) here. One strong chart that tells the whole story is worth more than five mediocre ones.

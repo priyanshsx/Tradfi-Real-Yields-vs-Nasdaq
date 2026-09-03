@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import duckdb
 from scipy import stats
+import statsmodels.api as sm
 
 con = duckdb.connect('/home/priyansh/Documents/d/Tradfi Real Yields vs Nasdaq/db/main.duckdb') 
 
@@ -23,4 +24,14 @@ plt.xlabel('Daily Yield Change (bps)')
 plt.ylabel('Daily QQQ Returns')
 plt.title('QQQ Return vs. 10-Year Real Yield Change')
 plt.grid(alpha=0.3)
-plt.show()
+# plt.show()
+
+# running the OLS regression 
+reg_df = df[['daily_return_qqq', 'daily_yield_change']].dropna()
+
+X = reg_df['daily_yield_change'] # independent variable
+Y = reg_df['daily_return_qqq'] # dependent variable
+
+X = sm.add_constant(X) # since qqq returns and daily yield change are not moving in exact tandem
+model = sm.OLS(Y, X).fit() 
+print(model.summary())
