@@ -60,7 +60,6 @@
 
 ## Pipeline
 
-
 1. **Ingestion**: Daily QQQ price data (OHLCV) and DFII10 (10-year Treasury Inflation-Indexed Security, real yield) data were downloaded as CSVs and loaded into DuckDB tablees using read_csv_auto(). The QQQ file rqeuired skipping 3 header rows due to a multi-row ticker/metadata header/ 
 2. **Cleaning**: DFII10 contained 17 NULL values, all falling on US market holidays (confirmed by cross-referencing against QQQ's missing dates using EXCEPT). These were resolved using a forward-fill, carrying the last known yield forward. A 2-3 publication lag was identified between QQQ and DFII10(FRED, delayed). QQQ's most recent unmatched dates were left as NULL post-join and excluded from analysis via WHERE...IS NOT NULL. Duplicate dates were checked for and confirmed absent in both tables prior to merging. 
 3. **Transformation**: Two derived columns were created using LAG() window functions in SQL: (1) daily_return_qqq, the standard percentage return (price - previous_price / previous_price_ and 2)daily_yield_change, the raw day-over-day change in DFII10 expressed in basis points (yield - previous_yield) * 100. Basis points were used for the yield series, since yields are already normalized rates where absolute point movement is the economically meaningful unit. 
@@ -70,13 +69,10 @@
 
 ## Key Findings
 
-A simple OLS regression finds a small, negative, and boderline-significant relationship between daily 10-year real yield changes and QQQ daily returns: 
-    coefficient = -0.0004
-    p = 0.048 
-This explains the under 1% of return variance (R² = 0.009).
-
-Given non-normal, fat-tailed residuals (confirmed via Jarque-Bera test), this borderline p-value should be interpreted cautiously - the true relationship may not be statistically distinguishable from noise under more robust testing. This weak daily-level result motivates examining the relationship at a regime level (sustained multi-week yield trends) rather than day-to-day, where the relationship may be more pronounced. 
-
+- Daily changes in the 10-year real real yield (DFII10) show a weak negative correlation with   QQQ's daily returns (r = -0.097, p = 0.048), just below the conventional 5% significance threshold. 
+- However, this relationship explains less than 1% of the variation in QQQ's daily returns (R-squared = 0.009) even though the effect is likely not due to pure chance, it is too small to be practically meaningful for understanding or predicting daily QQQ performance. 
+- The regression's residuals are strongly non-normal (Jarque-Bera test, kurtosis = 16), a common feature of daily financial return data. Given the p-value sits right at the 0.05 boundary, this result should be treated as borderline rather than robust evidence of a real daily-level effect. 
+- Overall, the data suggests that if a relationship between real yields and QQQ exists, it does not manifest a consistent economically meaningful pattern at the single-day level, motivating further analysis at a regime/multi-week level rather than a day-to-day one. 
 
 ## Visualization
 Embed or link your key chart(s) here. One strong chart that tells the whole story is worth more than five mediocre ones.
